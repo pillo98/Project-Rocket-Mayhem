@@ -7,7 +7,7 @@ public class Break : MonoBehaviour
     public GameObject BrokenVariant;
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player") == true)
+        if (collision.gameObject.CompareTag("Rocket") == true)
         {
             Instantiate(BrokenVariant, transform.position, transform.rotation);
             Destroy(gameObject);
