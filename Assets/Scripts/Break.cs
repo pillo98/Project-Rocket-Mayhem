@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Break : MonoBehaviour
 {
-    public GameObject BrokenVariant;
+    [SerializeField] private GameObject BrokenVariant;
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Rocket") == true)
+        if (collision.gameObject.CompareTag("Ground") == false && collision.gameObject.CompareTag("Player") == false)
         {
             Instantiate(BrokenVariant, transform.position, transform.rotation);
             Destroy(gameObject);

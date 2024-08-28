@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4613030215239583626}
   - component: {fileID: 1487642026524617755}
   - component: {fileID: 7613225189415801552}
+  - component: {fileID: 7300313189139836166}
   m_Layer: 0
   m_Name: Explosion
   m_TagString: Untagged
@@ -3619,7 +3620,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 0
+    enabled: 1
     serializedVersion: 4
     type: 0
     collisionMode: 0
@@ -3789,7 +3790,7 @@ ParticleSystem:
         m_RotationOrder: 4
     minKillSpeed: 0
     maxKillSpeed: 10000
-    radiusScale: 1
+    radiusScale: 5
     collidesWith:
       serializedVersion: 2
       m_Bits: 4294967295
@@ -4828,3 +4829,20 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &7300313189139836166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8231005891820104542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f54f1ccf0ccae4a88a57e03e312bf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onScreenDelay: 1
+  radius: 5
+  power: 1000
+  colliders: []
+  explosionPos: {x: 0, y: 0, z: 0}

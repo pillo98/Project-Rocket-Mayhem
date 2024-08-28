@@ -6,7 +6,7 @@ public class Shoot : MonoBehaviour
     [Header("AMMUS")]
 
     [SerializeField] private GameObject Rocket;
-    [SerializeField] private float BulletSpeed = 10f;
+    [SerializeField] public float BulletSpeed = 10f;
     [SerializeField] private Transform BulletSpawn;
 
     public bool IsShooting { get; set; }
