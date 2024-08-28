@@ -1,3 +1,4 @@
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,32 +9,36 @@ public class Shoot : MonoBehaviour
     [SerializeField] private GameObject Rocket;
     [SerializeField] public float BulletSpeed = 10f;
     [SerializeField] private Transform BulletSpawn;
+    [SerializeField] private GameObject RocetOnGun;
+    [SerializeField] private float cooldownTime = 5f;
+    [SerializeField] private float lastUsedTime;
+    [SerializeField] private GameObject RPG;
+    [SerializeField] private Animator RPGShoot;
 
-    public bool IsShooting { get; set; }
-
-    private Mouse mouse;
-
-    private void Start()
+    private void Awake()
     {
-        mouse = Mouse.current;
+        RPGShoot = RPG.GetComponent<Animator>();
     }
-
-    private void Update()
+    void Update()
     {
-        IsShooting = mouse.leftButton.wasPressedThisFrame;
-    }
-
-    private void FixedUpdate()
-    {
-        if(IsShooting)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > lastUsedTime + cooldownTime)
         {
-            GameObject newRocket = Instantiate(Rocket, BulletSpawn.position, BulletSpawn.rotation);
+            GameObject newRocket = Instantiate(Rocket, BulletSpawn.position, BulletSpawn.rotation );
 
             Rigidbody rb = newRocket.GetComponent<Rigidbody>();
 
-            rb.velocity = BulletSpawn.forward * BulletSpeed;
+            rb.velocity = BulletSpawn.right * BulletSpeed;
+
+            RocetOnGun.SetActive(false);
+
+            RPGShoot.Play("Shoot");
+
+            lastUsedTime = Time.time;
         }
-        IsShooting = false;
+        if(Time.time > lastUsedTime + cooldownTime)
+        {
+            RocetOnGun.SetActive(true);
+        }
     }
 
 }
