@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DestroyExplosionObject : MonoBehaviour
@@ -9,6 +11,7 @@ public class DestroyExplosionObject : MonoBehaviour
     public float power = 10.0F;
     public Collider[] colliders;
     public Vector3 explosionPos;
+    private ExplosionForceReceiver PlayerForceReceiveer;
 
 
     private void Start()
@@ -17,8 +20,23 @@ public class DestroyExplosionObject : MonoBehaviour
         colliders = Physics.OverlapSphere(explosionPos, radius);
         foreach (Collider hit in colliders)
         {
-            Rigidbody rb = hit.GetComponent<Rigidbody>();
+            Break Break = hit.gameObject.GetComponent<Break>();
 
+            if (Break != null)
+            {
+                Break.BreakObject();
+            }
+        }
+        colliders = Physics.OverlapSphere(explosionPos, radius);
+        foreach (Collider hit in colliders)
+        {
+            if (hit.gameObject.CompareTag("Player") && hit.gameObject.name == "PlayerCapsule")
+            {
+                PlayerForceReceiveer = hit.gameObject.GetComponent<ExplosionForceReceiver>();
+                Vector3 dir = explosionPos - hit.transform.position;
+                PlayerForceReceiveer.AddExplosionForce(-dir, power);
+            }
+            Rigidbody rb = hit.GetComponent<Rigidbody>();
             if (rb != null)
                 rb.AddExplosionForce(power, explosionPos, radius, 3.0F);
         }

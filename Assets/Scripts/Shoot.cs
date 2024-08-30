@@ -23,6 +23,7 @@ public class Shoot : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > lastUsedTime + cooldownTime)
         {
+
             GameObject newRocket = Instantiate(Rocket, BulletSpawn.position, BulletSpawn.rotation );
 
             Rigidbody rb = newRocket.GetComponent<Rigidbody>();

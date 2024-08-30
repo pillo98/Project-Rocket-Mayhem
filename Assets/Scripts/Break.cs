@@ -5,12 +5,9 @@ using UnityEngine;
 public class Break : MonoBehaviour
 {
     [SerializeField] private GameObject BrokenVariant;
-    private void OnCollisionEnter(Collision collision)
+    public void BreakObject()
     {
-        if (collision.gameObject.CompareTag("Ground") == false && collision.gameObject.CompareTag("Player") == false)
-        {
-            Instantiate(BrokenVariant, transform.position, transform.rotation);
-            Destroy(gameObject);
-        }
+        Instantiate(BrokenVariant, transform.position, transform.rotation);
+        Destroy(gameObject);
     }
 }
