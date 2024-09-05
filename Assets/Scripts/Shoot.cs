@@ -14,6 +14,8 @@ public class Shoot : MonoBehaviour
     [SerializeField] private float lastUsedTime;
     [SerializeField] private GameObject RPG;
     [SerializeField] private Animator RPGShoot;
+    [SerializeField]
+    private PauseManager PauseManager;
 
     private void Awake()
     {
@@ -21,7 +23,7 @@ public class Shoot : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > lastUsedTime + cooldownTime)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > lastUsedTime + cooldownTime && PauseManager.GamePaused == false)
         {
 
             GameObject newRocket = Instantiate(Rocket, BulletSpawn.position, BulletSpawn.rotation );
@@ -36,10 +38,10 @@ public class Shoot : MonoBehaviour
 
             lastUsedTime = Time.time;
         }
-        if(Time.time > lastUsedTime + cooldownTime)
+        if(Time.time > lastUsedTime + cooldownTime )
         {
             RocetOnGun.SetActive(true);
-        }
+        }   
     }
 
 }
