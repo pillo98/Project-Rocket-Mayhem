@@ -15,6 +15,7 @@ public class PauseManager : MonoBehaviour
     private void Awake()
     {
         characterController = playerInput.gameObject.GetComponent<CharacterController>();
+        Time.timeScale = 1;
     }
 
     void Update()

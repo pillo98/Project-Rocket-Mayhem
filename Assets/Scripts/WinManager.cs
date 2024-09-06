@@ -6,6 +6,7 @@ using UnityEngine;
 using Newtonsoft.Json;
 using System.IO;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem.Controls;
 
 public class WinManager : MonoBehaviour
 {
@@ -18,32 +19,52 @@ public class WinManager : MonoBehaviour
     [SerializeField]
     private string CurrentScene;
 
-    private Dictionary<string, int> highScore = new Dictionary<string, int>();
-
     private void Awake()
     {
-        CurrentScene = SceneManager.GetActiveScene().ToString();
+        CurrentScene = SceneManager.GetActiveScene().name;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        StarterAssetsInputs pInput = collision.gameObject.GetComponent<StarterAssetsInputs>();
-        pInput.cursorLocked = false;
-        pInput.cursorInputForLook = false;
-        Time.timeScale = 0;
-        WinScreen.SetActive(true);
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            StarterAssetsInputs pInput = collision.gameObject.GetComponent<StarterAssetsInputs>();
+            pInput.cursorLocked = false;
+            pInput.cursorInputForLook = false;
+            Time.timeScale = 0;
+            WinScreen.SetActive(true);
 
-        ScoreText.text = "Score: " + scoreManager.Score;
-
-        SaveHighScore(highScore);
+            ScoreText.text = "Score: " + scoreManager.Score;
+            SaveHighScore();
+        }
     }
 
-    public void SaveHighScore(Dictionary<string, int> highScore)
+    public void SaveHighScore()
     {
         string json = JsonConvert.SerializeObject(scoreManager.Score);
 
-        string filePath = $"{Application.dataPath}/HighScores.json";
+        string filePath = $"{Application.dataPath}/{CurrentScene}-HighScore.json";
 
-        File.WriteAllText(filePath, json);
+        if (File.Exists(filePath)) 
+        { 
+            string HighScoreString = File.ReadAllText(filePath);
+
+            int HighScore = int.Parse(HighScoreString);
+
+            if (HighScore < scoreManager.Score) 
+            {
+                File.WriteAllText(filePath, json);
+                Debug.Log("High Score beaten");
+            }
+            else
+            {
+                Debug.Log("High Score Not beaten");
+            }
+        }
+        else
+        {
+            File.WriteAllText(filePath, json);
+            Debug.Log("File created");
+        }
     }
 }
