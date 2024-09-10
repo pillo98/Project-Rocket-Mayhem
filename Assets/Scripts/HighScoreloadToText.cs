@@ -20,11 +20,19 @@ public class HighScoreloadToText : MonoBehaviour
 
             string filePath = $"{Application.dataPath}/{Scene}-HighScore.json";
 
-            Score = File.ReadAllText(filePath);
-
             text = this.gameObject.GetComponent<TMP_Text>();
 
-            text.text = $"HighScore:{Score}";
+            if (File.Exists(filePath) != true) 
+            { 
+                text.text = "HighScore not set";
+            }
+            else
+            {
+                Score = File.ReadAllText(filePath);
+
+                text.text = $"HighScore:{Score}";
+            }
+
         }
     }
 }

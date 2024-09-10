@@ -28,10 +28,9 @@ public class PauseManager : MonoBehaviour
         {
             resumeGame();
         }
-         
-
-
     }
+
+    
 
     public void pauseGame()
     {

@@ -21,7 +21,6 @@ public class ExplosionForceReceiver : MonoBehaviour
     public void AddExplosionForce(Vector3 dir, float force)
     {
         dir.Normalize();
-        if (dir.y < 0) dir.y = -dir.y;
         impact += dir.normalized * force / mass;
     }
 }

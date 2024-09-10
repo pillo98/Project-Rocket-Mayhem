@@ -33,8 +33,8 @@ public class DestroyExplosionObject : MonoBehaviour
             if (hit.gameObject.CompareTag("Player") && hit.gameObject.name == "PlayerCapsule")
             {
                 PlayerForceReceiveer = hit.gameObject.GetComponent<ExplosionForceReceiver>();
-                Vector3 dir = explosionPos - hit.transform.position;
-                PlayerForceReceiveer.AddExplosionForce(-dir, power);
+                Vector3 dir = hit.transform.position - explosionPos;
+                PlayerForceReceiveer.AddExplosionForce(dir, power);
             }
             Rigidbody rb = hit.GetComponent<Rigidbody>();
             if (rb != null)
