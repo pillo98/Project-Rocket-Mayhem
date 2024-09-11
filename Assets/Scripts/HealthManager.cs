@@ -2,6 +2,7 @@ using Leguar.LowHealth;
 using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,7 +18,10 @@ public class HealthManager : MonoBehaviour
     LowHealthController HealthController;
     [SerializeField]
     GameObject GameOver;
-
+    [SerializeField]
+    TMP_Text GameOverScore;
+    [SerializeField]
+    ScoreManager ScoreManager;
     void Start()
     {
         Health = 100;
@@ -54,6 +58,7 @@ public class HealthManager : MonoBehaviour
             pInput.cursorLocked = false;
             pInput.cursorInputForLook = false;
             Time.timeScale = 0;
+            GameOverScore.text = $"Score: {ScoreManager.Score}";
             GameOver.SetActive(true);
             return;
         }
