@@ -11,7 +11,6 @@ public class ScoreManager : MonoBehaviour
     void Update()
     {
         CompletionTime += Time.deltaTime;
-        Score += 1;
     }
 
     public void AddScore(int ScoreToAdd)

@@ -8,12 +8,16 @@ public class EnemyBullet : MonoBehaviour
     int Damage;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && other.gameObject.name == "PlayerCapsule")
         {
             HealthManager Php = other.gameObject.GetComponent<HealthManager>();
 
             Php.TakeDamage(Damage);
 
+            Destroy(gameObject);
+        }
+        else if (other.CompareTag("Enemy") != true)
+        {
             Destroy(gameObject);
         }
     }

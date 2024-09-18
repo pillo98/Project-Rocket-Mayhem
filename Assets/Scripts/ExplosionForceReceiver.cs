@@ -20,6 +20,7 @@ public class ExplosionForceReceiver : MonoBehaviour
     }
     public void AddExplosionForce(Vector3 dir, float force)
     {
+        dir.y *= 3;
         dir.Normalize();
         impact += dir.normalized * force / mass;
     }

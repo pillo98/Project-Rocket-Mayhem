@@ -22,6 +22,8 @@ public class HealthManager : MonoBehaviour
     TMP_Text GameOverScore;
     [SerializeField]
     ScoreManager ScoreManager;
+    [SerializeField]
+    PauseManager PauseManager;
     void Start()
     {
         Health = 100;
@@ -54,11 +56,12 @@ public class HealthManager : MonoBehaviour
         if (Health <= 0)
         {
             Health = 0;
+            PauseManager.GamePaused = true;
             StarterAssetsInputs pInput = gameObject.GetComponent<StarterAssetsInputs>();
             pInput.cursorLocked = false;
             pInput.cursorInputForLook = false;
             Time.timeScale = 0;
-            GameOverScore.text = $"Score: {ScoreManager.Score}";
+            GameOverScore.text = $"Score So Far: {ScoreManager.Score}";
             GameOver.SetActive(true);
             return;
         }

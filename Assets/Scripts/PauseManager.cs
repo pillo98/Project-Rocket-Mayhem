@@ -20,13 +20,9 @@ public class PauseManager : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKey(KeyCode.Escape))
+        if(Input.GetKey(KeyCode.Escape) && GamePaused != true)
         {
             pauseGame();
-        }
-        else if(Input.GetKey(KeyCode.Escape) && GamePaused == true)
-        {
-            resumeGame();
         }
     }
 

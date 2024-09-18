@@ -15,26 +15,32 @@ public class WinManager : MonoBehaviour
     [SerializeField]
     private TMP_Text ScoreText;
     [SerializeField]
+    private TMP_Text TimeText;
+    [SerializeField]
     private GameObject WinScreen;
     [SerializeField]
     private string CurrentScene;
-
+    [SerializeField]
+    private int ScoreMedian;
     private void Awake()
     {
         CurrentScene = SceneManager.GetActiveScene().name;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            StarterAssetsInputs pInput = collision.gameObject.GetComponent<StarterAssetsInputs>();
-            pInput.cursorLocked = false;
-            pInput.cursorInputForLook = false;
+            scoreManager.Score += ScoreMedian / (int)scoreManager.CompletionTime;
+            StarterAssetsInputs Input = collision.gameObject.GetComponent<StarterAssetsInputs>();
+            Input.cursorLocked = false;
+            Input.cursorInputForLook = false;
             Time.timeScale = 0;
             WinScreen.SetActive(true);
 
+
             ScoreText.text = "Score: " + scoreManager.Score;
+            TimeText.text = "Timee: " + scoreManager.CompletionTime;
             SaveHighScore();
         }
     }

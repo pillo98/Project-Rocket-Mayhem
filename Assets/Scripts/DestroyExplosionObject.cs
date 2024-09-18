@@ -34,7 +34,7 @@ public class DestroyExplosionObject : MonoBehaviour
             {
                 PlayerForceReceiveer = hit.gameObject.GetComponent<ExplosionForceReceiver>();
                 Vector3 dir = hit.transform.position - explosionPos;
-                PlayerForceReceiveer.AddExplosionForce(dir, power);
+                PlayerForceReceiveer.AddExplosionForce(dir, power * 3);
             }
             Rigidbody rb = hit.GetComponent<Rigidbody>();
             if (rb != null)

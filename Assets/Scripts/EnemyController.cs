@@ -23,11 +23,13 @@ public class EnemyController : MonoBehaviour
 
     private void CheackForHit(Collider Collider)
     {
-        if (Collider.gameObject.CompareTag("Player"))
+        if (Collider.gameObject.CompareTag("Player") && Collider.gameObject.name == "PlayerCapsule")
         {
 
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, Collider.gameObject.transform.position - transform.position, out hit, Mathf.Infinity, LayersToHit, QueryTriggerInteraction.UseGlobal))
+            Vector3 vector3 = Collider.gameObject.transform.position - transform.position;
+ 
+            if (Physics.Raycast(transform.position, vector3, out hit, Mathf.Infinity, LayersToHit, QueryTriggerInteraction.UseGlobal))
             {
                 Debug.DrawRay(transform.position, Collider.gameObject.transform.position - transform.position, Color.yellow);
                 Debug.Log("Did Hit");
