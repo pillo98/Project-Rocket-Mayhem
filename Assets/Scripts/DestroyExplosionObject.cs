@@ -7,6 +7,8 @@ using UnityEngine;
 public class DestroyExplosionObject : MonoBehaviour
 {
     [SerializeField] private float onScreenDelay = 1f;
+    [SerializeField] private AudioClip boom;
+    [SerializeField] private AudioSource audioSource;
     public float radius = 5.0F;
     public float power = 10.0F;
     public Collider[] colliders;
@@ -18,6 +20,7 @@ public class DestroyExplosionObject : MonoBehaviour
     {
         explosionPos = transform.position;
         colliders = Physics.OverlapSphere(explosionPos, radius);
+        audioSource.PlayOneShot(boom);
         foreach (Collider hit in colliders)
         {
             Break Break = hit.gameObject.GetComponent<Break>();

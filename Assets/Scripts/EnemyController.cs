@@ -11,6 +11,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float cooldownTime = 5f;
     [SerializeField] private float lastUsedTime;
     [SerializeField] private Animator animator;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip audio;
     void Update()
     {
     }
@@ -53,7 +55,7 @@ public class EnemyController : MonoBehaviour
 
         if (Time.time > lastUsedTime + cooldownTime)
         {
-
+            audioSource.PlayOneShot(audio);
             animator.Play("EnemyBlink");
 
             GameObject newRocket = Instantiate(Shootable, BulletSpawn.position, BulletSpawn.rotation);

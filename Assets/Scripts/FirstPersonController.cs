@@ -11,7 +11,14 @@ namespace StarterAssets
 #endif
 	public class FirstPersonController : MonoBehaviour
 	{
-		[Header("Player")]
+		[SerializeField]
+		private AudioClip jumpClip;
+        [SerializeField]
+		private AudioSource audioSource;
+        [SerializeField]
+        private AudioSource JumpaudioSource;
+
+        [Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
 		public float MoveSpeed = 4.0f;
 		[Tooltip("Sprint speed of the character in m/s")]
@@ -20,6 +27,7 @@ namespace StarterAssets
 		public float RotationSpeed = 1.0f;
 		[Tooltip("Acceleration and deceleration")]
 		public float SpeedChangeRate = 10.0f;
+		public bool moving = false;
 
 		[Space(10)]
 		[Tooltip("The height the player can jump")]
@@ -114,7 +122,16 @@ namespace StarterAssets
 		{
 			JumpAndGravity();
 			GroundedCheck();
+			moving = false;
 			Move();
+			if (moving == true && Grounded == true && audioSource.isPlaying == false)
+			{
+				audioSource.Play();
+			}
+			else if (moving == false || Grounded == false)
+			{
+                audioSource.Stop();
+            }
 		}
 
 		private void LateUpdate()
@@ -192,10 +209,13 @@ namespace StarterAssets
 			{
 				// move
 				inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
+				moving = true;
+				
 			}
+			
+                // move the player
+               _controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
-			// move the player
-			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 		}
 
 		private void JumpAndGravity()
@@ -216,6 +236,8 @@ namespace StarterAssets
 				{
 					// the square root of H * -2 * G = how much velocity needed to reach desired height
 					_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+                    JumpaudioSource.PlayOneShot(jumpClip);
+					
 				}
 
 				// jump timeout

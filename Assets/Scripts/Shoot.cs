@@ -14,6 +14,8 @@ public class Shoot : MonoBehaviour
     [SerializeField] private float lastUsedTime;
     [SerializeField] private GameObject RPG;
     [SerializeField] private Animator RPGShoot;
+    [SerializeField] private AudioClip shooting;
+    [SerializeField] private AudioSource audioSource;
     [SerializeField]
     private PauseManager PauseManager;
 
@@ -35,6 +37,7 @@ public class Shoot : MonoBehaviour
             RocetOnGun.SetActive(false);
 
             RPGShoot.Play("Shoot");
+            audioSource.PlayOneShot(shooting);
 
             lastUsedTime = Time.time;
         }
